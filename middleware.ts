@@ -1,28 +1,36 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+//ARRAY DE ROTAS QUE NECESSITAM DE TOKEN, PUBLICAS E ROTA DE AUTENTICAÇÃO
 const routersToken = ['/home','/articles','/tags']
 const routersPublic = ['/login', '/']
 const routersAuth = ['/login/form']
 
+//FUNÇÃO DE MIDDLEWARE PARA VALIDAR O TOKEN E PERMISSÃO DE ROTAS
 export async function middleware(request: NextRequest) {
+    //VERIFICA A ROTA ATUAL
     const {pathname} = request.nextUrl
-
+    //VERIFICA SE A ROTA ATUAL É UMA ROTA QUE NECESSITA DE TOKEN
     const isRoutersToken = routersToken.some(route => 
         pathname.startsWith(route)
     )
+    //VERIFICA SE A ROTA ATUAL É UMA ROTA PUBLICA
     const isRoutersPublic = routersPublic.some(route => 
         pathname.startsWith(route)
     )
+    //VERIFICA SE A ROTA ATUAL É A ROta DE AUTENTICAÇÃO
     const isRoutersAuth = routersAuth.some(route => 
         pathname.startsWith(route)
     )
 
+    //RECUPERA O TOKEN DO COOKIE DO NAVEGADOR
     const token = request.cookies.get('x-token-session')?.value
 
+    //VALIDAÇÃO SE A ROTA É PUBLICA E NÃO EXISTE O TOKEN E DIRECIONA PARA A PÁGINA DE LOGIN
     if(isRoutersToken && !token) {
         return NextResponse.redirect(new URL('/login/form', request.url))
     }
 
+    //VALIDAÇÃO SE O TOKEN EXISTE
     if(token) {
         try {
             
@@ -54,6 +62,7 @@ export async function middleware(request: NextRequest) {
             return response
         }
     }
+    //VALIDAÇÃO SE A ROTA É PUBLICA, CASO SIM RETORNA O NEXT
     if(isRoutersPublic) {
         return NextResponse.next()
     }

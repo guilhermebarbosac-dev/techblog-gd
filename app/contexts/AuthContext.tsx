@@ -2,8 +2,10 @@
 //IMPORTS DE TYPES E HOOKS
 import { AuthContextType, User } from '@/lib/types';
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+
 //TIPAGEM DA VARIAVÉL DE CONTEXTO PARA AUTENTICAÇÃO
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
 //FUNÇÃO PARA PROVER O CONTEXTO DE AUTENTICAÇÃO
 export function AuthProvider({ children }: { children: ReactNode }) {
   //VARIAVÉIS DE ESTADO PARA ARMAZENAR O USUÁRIO E O ESTADO DE CARREGAMENTO
@@ -30,6 +32,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setLoading(false);
         return;
       }
+      
       //SE ENCONTRAR, CHAMA A API PARA VALIDAR A SESSÃO E RECUPERAR OS DADOS DO USUÁRIO
       const response = await fetch('/api/login/validate-session', {
         method: 'POST',
@@ -38,12 +41,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         },
         body: JSON.stringify({ token })
       });
+      
       //SE A RESPOSTA FOR CONTRÁRIA A OK O USUÁRIO É SETADO COMO NULO E O LOADING É SETADO COMO FALSE
       if (!response.ok) {
         setUser(null);
         setLoading(false);
         return;
       }
+      
       //SE A RESPOSTA FOR OK, PUXA OS DADOS DO USUÁRIO E ARMAZENA EM DATA
       const data = await response.json();
 
@@ -53,6 +58,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setLoading(false);
         return;
       }
+      
       //SE O USUÁRIO É VÁLIDO ARMAZENA OS DADOS DELE NA VARIAVÉL USER
       setUser({
         id: data.user.id,
@@ -70,12 +76,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
-    //FUNÇÃO QUE FAZ A REQUISIÇÃO PARA O SERVIDOR PARA ARMAZENAR O USUÁRIO QUE VAI SER LOGADO
-    const login = (userData: User) => {
-        setUser(userData);
-    };
+  //FUNÇÃO QUE FAZ A REQUISIÇÃO PARA O SERVIDOR PARA ARMAZENAR O USUÁRIO QUE VAI SER LOGADO
+  const login = (userData: User) => {
+    setUser(userData);
+  };
   
-  //CARREGA O USUÁRIO ATUAL
+  //HOOK DE EFEITO PARA VALIDAR SESSÃO DO USUÁRIO PERIODICAMENTE
+  useEffect(() => {
+    //VERIFICA A SESSÃO DE 30 EM 30 MINUTOS
+    const interval = setInterval(() => {
+      fetchCurrentUser();
+    }, 30 * 60 * 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  //HOOK DE EFEITO PARA BUSCAR O USUÁRIO ATUAL
   useEffect(() => {
     fetchCurrentUser();
   }, []);
