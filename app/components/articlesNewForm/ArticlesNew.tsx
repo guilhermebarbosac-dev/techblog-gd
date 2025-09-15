@@ -1,3 +1,4 @@
+//IMPORTS DE LIBS, HOOKS, COMPONENTES E OUTROS
 import TEXTS from '@/app/constants/texts'
 import ButtonPrimary from '../buttonsGlobal/ButtonPrimary'
 import InputForms from '../inputsGlobal/InputForms'
@@ -11,10 +12,12 @@ import { toast } from 'react-hot-toast'
 import { ArticlesNewProps, Tag } from '@/lib/types'
 import { useAuth } from '@/app/contexts/AuthContext'
 
-
+//EXPORTA FUNÇÃO DE COMPONENTE ARTICLESNEW
 export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps) {
   const router = useRouter()
+  //HOOK BUSCA USUÁRIO EM CONTEXTO DA APLICAÇÃO
   const { user, loading } = useAuth()
+  //VARIAVEIS DE ESTADO PARA ARMAZENAMENTO DE DADOS 
   const [availableTags, setAvailableTags] = useState<Tag[]>([])
   const [selectedTagIds, setSelectedTagIds] = useState<string[]>([])
   const [title, setTitle] = useState('')
@@ -23,8 +26,10 @@ export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps)
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingTags, setIsLoadingTags] = useState(true)
   
+  //ATRIBUI O ID DO USUÁRIO LOGADO A VARIÁVEL currentUser
   const currentUser = user?.id
 
+  //HOOK DE EFEITO DE CONSTRUÇÃO DE PÁGINA BUSCANDO TODAS TAGS PARA O COMPONENTE SER MONTADO CORRETAMENTE
   useEffect(() => {
     const fetchTags = async () => {
       try {
@@ -46,6 +51,7 @@ export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps)
     fetchTags()
   }, [])
   
+  //HOOK DE EFEITO PARA SETAR OS VALORES INICIAIS DO ARTIGO
   useEffect(() => {
     if (article) {
       setTitle(article.title || '')
@@ -54,6 +60,7 @@ export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps)
     }
   }, [article])
   
+  //HOOK DE EFEITO PARA SETAR OS VALORES INICIAIS DAS TAGS RETORNADAS DO BANCO
   useEffect(() => {
     if (article?.tags && availableTags.length > 0) {
       const tagIds = article.tags.map(tagName => {
@@ -64,6 +71,7 @@ export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps)
     }
   }, [article?.tags, availableTags])
 
+  //VALIDAÇÃO DE CARREGAMENTO DE DADOS
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -71,12 +79,8 @@ export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps)
       </div>
     );
   }
-  
-  if (!user) {
-    router.push('/login/form');
-    return null;
-  }
 
+  //FUNÇÃO PARA ATRIBUIR AS TAGS AO RESPECTIVO ARTIGO
   const toggleTag = (tagId: string) => {
     if (selectedTagIds.includes(tagId)) {
       setSelectedTagIds(selectedTagIds.filter((id) => id !== tagId))
@@ -85,6 +89,7 @@ export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps)
     }
   }
 
+  //FUNÇÃO PARA VALIDAR O FORMULÁRIO
   const validateForm = (): boolean => {
     if (!title.trim()) {
       toast.error('Título é obrigatório')
@@ -94,15 +99,20 @@ export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps)
       toast.error('Conteúdo é obrigatório')
       return false
     }
+    if (selectedTagIds.length === 0) {
+      toast.error('Pelo menos uma tag deve ser selecionada')
+      return false
+    }
     return true
   }
 
+  //FUNÇÃO PARA CRIAR UM NOVO ARTIGO
   const handleCreate = async () => {
 
     if(!validateForm()) return
 
     setIsLoading(true)
-    console.log(currentUser)
+
     try { 
       const newArticle = {
         title: title.trim(),
@@ -135,6 +145,7 @@ export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps)
     }
   }
 
+  //FUNÇÃO PARA ATUALIZAR UM ARTIGO EXISTENTE
   const handleUpdate = async () => {
     if (!validateForm() || !article?.id) return
 
@@ -171,6 +182,7 @@ export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps)
     }
   }
 
+  //FUNÇÃO ATRIBUIDA AO BOTÃO PARA VALIDAR SE É UMA CRIAÇÃO OU UMA EDIÇÃO E CHAMAR A FUNÇÃO RESPECTIVA PARA SOLIDAÇÃO.
   const handleSumit = async (e: React.FormEvent) => {
     e.preventDefault()
 

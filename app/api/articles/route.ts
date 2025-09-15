@@ -1,3 +1,4 @@
+//IMPORTS DE UTILS, LIBS E OUTROS
 import { NextResponse, NextRequest } from 'next/server'
 import {db} from '@/lib/prisma'
 import { validateRequestToken } from '@/lib/utils';
@@ -73,6 +74,14 @@ export async function POST(request: NextRequest) {
         if (!title || !content || !authorId) {
             return NextResponse.json(
                 { error: 'Título, conteúdo e autor são obrigatórios.' },
+                { status: 400 }
+            );
+        }
+        
+        //VERIFICA SE PELO MENOS UMA TAG FOI SELECIONADA SENÃO RETORNA PARA O FRONT ERRO E STATUS
+        if (!tagIds || tagIds.length === 0) {
+            return NextResponse.json(
+                { error: 'Pelo menos uma tag deve ser selecionada.' },
                 { status: 400 }
             );
         }

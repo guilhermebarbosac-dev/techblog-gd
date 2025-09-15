@@ -1,3 +1,4 @@
+//IMPORTS UTILS, LIBS E OUTROS
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/prisma';
 import { validateRequestToken } from '@/lib/utils';

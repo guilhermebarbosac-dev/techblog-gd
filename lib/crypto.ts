@@ -1,3 +1,4 @@
+//IMPORTS DE LIBS
 import { createHash, randomBytes } from 'crypto';
 
 //FUNÇÃO PARA GERAR O ID PUBLICO

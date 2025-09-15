@@ -34,8 +34,9 @@ export const ConfirmDeleteModal = ({
           </p>
         </div>
 
-        <div className="flex justify-end space-x-3">
+        <div className="flex sm:w-full justify-end space-x-3">
           <ButtonPrimary
+            className='w-fit sm:w-[7.625rem] sm:h-10 px-4'
             onClick={onClose}
             type="button"
           >
@@ -44,7 +45,7 @@ export const ConfirmDeleteModal = ({
           <ButtonPrimary
             onClick={onConfirm}
             type="button"
-            className="bg-button-primary hover:bg-button-primary/80 text-primary"
+            className=" w-fit sm:w-[7.625rem] sm:h-10 px-4 bg-button-primary hover:bg-button-primary/80 text-primary"
           >
             {TEXTS.ConfimDeleteModal.buttons.confirm}
           </ButtonPrimary>

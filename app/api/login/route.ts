@@ -1,3 +1,4 @@
+//IMPORTS DE LIBS, UTILS E OUTROS
 import { generateHashPassword, generateSessionToken } from "@/lib/crypto";
 import { db } from "@/lib/prisma";
 import { NextResponse } from "next/server";

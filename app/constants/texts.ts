@@ -73,12 +73,12 @@ const TEXTS = {
   NewArticles: {
     pageTitle: "Novo artigo",
     form: {
-        title: "Título do Artigo",
+        title: "Título do Artigo *",
         placeholderTitle: "Título",
         imageArticlesTitle: "Imagem do Artigo",
         placeholderImageArticles: "URL da imagem",
-        tags: "Tags",
-        content: "Conteúdo do Artigo",
+        tags: "Tags *",
+        content: "Conteúdo *",
         placeholderContent: "Escreva aqui seu artigo...",
         button: {
             title: "Criar Artigo",

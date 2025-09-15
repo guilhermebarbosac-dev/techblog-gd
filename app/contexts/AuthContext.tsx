@@ -1,5 +1,5 @@
 "use client";
-
+//IMPORTS DE TYPES E HOOKS
 import { AuthContextType, User } from '@/lib/types';
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 //TIPAGEM DA VARIAVÉL DE CONTEXTO PARA AUTENTICAÇÃO

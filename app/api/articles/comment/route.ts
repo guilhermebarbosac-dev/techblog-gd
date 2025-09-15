@@ -1,6 +1,6 @@
+//IMPORTS DE UTILS, LIBS E ETC
 import { db } from '@/lib/prisma';
 import { validateRequestToken } from '@/lib/utils';
-
 import { NextResponse } from 'next/server';
 
 //ROTA DE CRIAÇÃO DE COMENTÁRIO

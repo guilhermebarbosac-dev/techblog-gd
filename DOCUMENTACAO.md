@@ -69,12 +69,16 @@ techblog-gd/
 
 #### Melhorias de Interface e Principais Decisões de Front-End
 
-![Alterações Front-End](Captura de tela 2025-09-15 094320.png)
+![1757958241343](images/DOCUMENTACAO/1757958241343.png)
 
-- **Page Home(/Home)**: Nessa página que é a principal página do sistema tomei algumas decisões baseadas em fortalecer a identidade visual do sistema para o usuário e criar uma experiência visual e usual agradável para o usuário.
+![1757958611667](images/DOCUMENTACAO/1757958611667.png)
+
+- **Page Home(/home)**: Nessa página que é a principal página do sistema tomei algumas decisões baseadas em fortalecer a identidade visual do sistema para o usuário e criar uma experiência visual e usual agradável para o usuário.
 - **Decisão 1**: Bom para a primeira decisão que foi de exibir o nome do usuário que está logado no sistema, devido a como implementei o sistema de autenticação, o usuário possui uma sessão ativa ao se autenticar e percebi que no mockup não teria sido previsto essa informação, então decidi colocar o nome do usuário na página home para que ele possa ver seu nome e saber que ele está logado no sistema.
 - **Decisão 2**: Segunda decisão tomada foi de padronizar os botões utilizando componentes reutilizáveis que criei para os Buttons `ButtonPrimary.tsx` e `ButtonSecondary.tsx` que se encontram na pasta `components/buttonsGlobal/` resolvi utilizar o `ButtonSecondary` para os botões de Editar e Deletar um artigo criado pelo usuário, tornando padronizado todo o sistema de Buttons e estilização seguindo cores da identidade Visual, acredito que a UI/UX do sistema seja mais simples e intuitiva para o usuário trazendo uma experiência visual mais agradável.
 - **Decisão 3**: A terceira e última decisão tomada para a page Home, foi na paginação da listagem de artigos, onde foi também implementado o `paginationGlobal.tsx` que se encontra na pasta `components/paginationGlobal/` e pensando também na usabilidade do usuário e querendo trazer uma identidade visual fortalecida pelo sistema, decidi utilizar para as cores dos buttons de paginação as mesmas dos botões `ButtonPrimary.tsx` e `ButtonSecondary.tsx`.
+
+E outro ponto de decisão foi junto a page Home (/home) também para o mobile, minha percepção para a decisão tomada foi que quando título grandes mantendo as tags junto ao lado superior direito do título existia uma quebra de layout um pouco incômoda então optei por trazer as TAGs diferente do proposto pelo mockup resolvi adiciona-las ao final depois do conteúdo como no anexo acima, e também percebi que para o layout mobile não se tinha um botão para criar um novo artigo então optei por deixar também esse botão.
 
 ![1757955706275](images/DOCUMENTACAO/1757955706275.png)
 
@@ -84,10 +88,10 @@ techblog-gd/
 * **Decisão 3**: Nas informações de autor do artigo, quis proporcionar ao usuário uma experiência mais rápida de forma visual do autor do artigo, adicionando um componente de `Avatar` do `Shadcn-ui` e o nome do autor também em evidência para facilitar a identificação do autor do artigo.
 * **Decisão 4**: Essa foi nos comentários de um artigo, onde outras pessoas(usuários) podem interagir com o artigo através de comentários, onde foi criado bordas para destacar e separar os comentários e respostas trazendo uma experiência ao usuário de organização e clareza. E outro ponto de decisão tomado nessa parte de comentários foi criar um botão de editar tanto o comentário como a resposta pensando em um comentário grande e talvez cometido um erro simples de escrita não ter a necessidade de excluir o comentário inteiro, mas sim apenas editar o comentário ou resposta e também seguindo o padrão de identidade visual do sistema utilizei para todos os botões (Reply, Edit, Delete) utilizei o componente `ButtonSecondary` mantendo assim um consistência visual dos botões.
 
-![Alterações Front-End](image.png)
+![Alterações Front-End](images/DOCUMENTACAO/image.png)
 **Page Article-New(/articles/new)**: Aqui realizei uma única alteração do mockup que foi adicionar o botão voltar seguindo os padrões de identidade visual do sistema, assim como também utilizei o `ButtonSecondary`.
 
-![Alterações Front-End](image-1.png)
+![Alterações Front-End](images/DOCUMENTACAO/image-1.png)
 **Page Article-Edit(/articles/edit/:id)**: Aqui realizei também uma única alteração do mockup que foi adicionar o botão voltar seguindo os padrões de identidade visual do sistema, assim como utilizei o `ButtonSecondary`.
 
 ## Organização do Código
@@ -169,7 +173,13 @@ Ao atualizar um artigo estando logado, você pode escolher uma ou mais tags para
 É possível pesquisar artigos por tags na pagina Home do sistema `/home`. Onde se é possível combinar tags com pesquisas de texto.
 
 **Exemplo:**
-![alt text](image-2.png)
+![alt text](images/DOCUMENTACAO/image-2.png)
+
+Para o Mobile optei também por manter um padrão de layout igual para gerar para o usuário facilidade na usabilidade dos campos de busca, diferente de como foi proposto no mockup.
+
+Exemplo:
+
+![1757958132946](images/DOCUMENTACAO/1757958132946.png)
 
 A pesquisa por texto é feito um match de palavras com o título ou conteúdo do artigo automaticamente ele busca as palavras em ambos caso Título retorna, senão busca no conteúdo.
 

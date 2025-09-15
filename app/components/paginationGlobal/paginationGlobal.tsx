@@ -15,6 +15,7 @@ export default function PaginationGlobal({
   onPageChange 
 }: PaginationProps) {
 
+  //FUNÇÃO ASSÍNCRONA PARA OBTER PÁGINAS VISÍVEIS
   const getVisiblePages = () => {
     const pages = [];
     const maxVisible = 3; 
@@ -52,12 +53,14 @@ export default function PaginationGlobal({
 
   const visiblePages = getVisiblePages();
 
+  //FUNÇÃO PARA ALTERNAR ENTRE PAGINAS EXISTENTES
   const handlePageClick = (page: number) => {
     if (page >= 1 && page <= totalPages && page !== currentPage) {
       onPageChange(page);
     }
   };
 
+  //SE HOUVER APENAS UMA PÁGINA RETORNA NULO
   if (totalPages <= 1) {
     return null;
   }
