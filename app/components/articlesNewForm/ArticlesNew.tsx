@@ -13,7 +13,7 @@ import { ArticlesNewProps, Tag } from '@/lib/types'
 import { useAuth } from '@/app/contexts/AuthContext'
 
 //EXPORTA FUNÇÃO DE COMPONENTE ARTICLESNEW
-export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps) {
+export default function ArticlesNew({ isNewCreate, article }: ArticlesNewProps) {
   const router = useRouter()
   //HOOK BUSCA USUÁRIO EM CONTEXTO DA APLICAÇÃO
   const { user, loading } = useAuth()
@@ -25,7 +25,7 @@ export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps)
   const [content, setContentState] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [isLoadingTags, setIsLoadingTags] = useState(true)
-  
+
   //ATRIBUI O ID DO USUÁRIO LOGADO A VARIÁVEL currentUser
   const currentUser = user?.id
 
@@ -50,7 +50,7 @@ export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps)
 
     fetchTags()
   }, [])
-  
+
   //HOOK DE EFEITO PARA SETAR OS VALORES INICIAIS DO ARTIGO
   useEffect(() => {
     if (article) {
@@ -59,7 +59,7 @@ export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps)
       setContentState(article.content || '')
     }
   }, [article])
-  
+
   //HOOK DE EFEITO PARA SETAR OS VALORES INICIAIS DAS TAGS RETORNADAS DO BANCO
   useEffect(() => {
     if (article?.tags && availableTags.length > 0) {
@@ -109,11 +109,11 @@ export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps)
   //FUNÇÃO PARA CRIAR UM NOVO ARTIGO
   const handleCreate = async () => {
 
-    if(!validateForm()) return
+    if (!validateForm()) return
 
     setIsLoading(true)
 
-    try { 
+    try {
       const newArticle = {
         title: title.trim(),
         avatar: avatar.trim(),
@@ -138,9 +138,9 @@ export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps)
 
       router.push('/home')
 
-    }catch(error) {
+    } catch (error) {
       toast.error('Erro ao criar o artigo' + error)
-    }finally { 
+    } finally {
       setIsLoading(false)
     }
   }
@@ -159,7 +159,7 @@ export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps)
         content: content.trim(),
         tagIds: selectedTagIds
       }
-     const response = await fetch(`/api/articles/${article.id}`, {
+      const response = await fetch(`/api/articles/${article.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'
@@ -172,7 +172,7 @@ export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps)
       }
 
       toast.success('Artigo atualizado com sucesso!')
-      
+
       router.push('/home')
     } catch (error) {
       console.error('Error updating article:', error)
@@ -186,9 +186,9 @@ export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps)
   const handleSumit = async (e: React.FormEvent) => {
     e.preventDefault()
 
-    if(isNewCreate) {
+    if (isNewCreate) {
       await handleCreate()
-    }else{
+    } else {
       await handleUpdate()
     }
   }
@@ -199,71 +199,71 @@ export default function ArticlesNew({ isNewCreate, article } : ArticlesNewProps)
         <ButtonSecondary
           onClick={() => router.back()}
         >
-            <ArrowLeft className="w-8 h-8"/>
+          <ArrowLeft className="w-8 h-8" />
         </ButtonSecondary>
         <h1 className='text-[32px] text-primary font-bold leading-10 tracking-normal'>
           {isNewCreate ? TEXTS.NewArticles.pageTitle : TEXTS.EditArticles.pageTitle}
         </h1>
-        <ButtonPrimary 
+        <ButtonPrimary
           className={`w-fit sm:w-[6.8125rem] sm:h-10 sm:min-w-[5.25rem] sm:max-w-[30rem] font-semibold disabled:${isLoading}`}
           onClick={handleSumit}
-        > 
+        >
           {isNewCreate ? TEXTS.NewArticles.form.button.title : TEXTS.EditArticles.form.button.title}
         </ButtonPrimary>
       </div>
       <form className='flex flex-col gap-4 py-3'>
-          <InputForms 
-            className='w-full sm:w-full h-10'
-            valueInput={title}
-            onChangeInput={(e) => setTitle(e.target.value)}
-            classNameTitle='text-primary text-[16px] font-semibold leading-6 tracking-normal'
-            titleInput= { TEXTS.NewArticles.form.title }
-            placeholderInput={ TEXTS.NewArticles.form.placeholderTitle }
-            isTitle={true}
-          />
-          <InputForms 
-            className='w-full sm:w-full h-10'
-            valueInput={avatar}
-            onChangeInput={(e) => setAvatar(e.target.value)}
-            classNameTitle='text-primary text-[16px] font-semibold leading-6 tracking-normal'
-            titleInput= { TEXTS.NewArticles.form.imageArticlesTitle }
-            placeholderInput={ TEXTS.NewArticles.form.placeholderImageArticles }
-            isTitle={true}
-          />
-          <p className='text-primary text-[16px] font-semibold leading-6 tracking-normal'>
-            { TEXTS.NewArticles.form.tags }
-          </p>
-          {isLoadingTags ? (
-            <p className='text-gray-500'>Carregando tags...</p>
-          ) : (
-            <div className="flex flex-wrap gap-2">
-              {availableTags.map((tag) => {
-                const isSelected = selectedTagIds.includes(tag.id);
-                return (
-                  <Badge 
-                    key={tag.id}
-                    onClick={() => toggleTag(tag.id)}
-                    className={`${isSelected 
-                      ? 'bg-button-primary text-placeholder-input text-[14px] font-medium leading-[1.3125rem] tracking-normal cursor-pointer px-4 w-fit h-8' 
-                      : 'bg-button-primary/80 text-primary text-[14px] font-medium leading-[1.3125rem] tracking-normal cursor-pointer px-4 w-fit h-8'}`}
-                  >
-                    <p className='mt-1'>
-                      {tag.name}
-                    </p>
-                  </Badge>
-                )
-              })}
-            </div>
-          )}
-          <TextareaGlobal
-            isTitle={ true }
-            valueTextArea={ content }
-            onChangeTextarea={ (e) => {
-              setContentState(e.target.value)
-            } }
-            titleTextArea={ TEXTS.NewArticles.form.content }
-            placeholderTextArea={ TEXTS.NewArticles.form.placeholderContent }
-          />
+        <InputForms
+          className='w-full sm:w-full h-10'
+          valueInput={title}
+          onChangeInput={(e) => setTitle(e.target.value)}
+          classNameTitle='text-primary text-[16px] font-semibold leading-6 tracking-normal'
+          titleInput={TEXTS.NewArticles.form.title}
+          placeholderInput={TEXTS.NewArticles.form.placeholderTitle}
+          isTitle={true}
+        />
+        <InputForms
+          className='w-full sm:w-full h-10'
+          valueInput={avatar}
+          onChangeInput={(e) => setAvatar(e.target.value)}
+          classNameTitle='text-primary text-[16px] font-semibold leading-6 tracking-normal'
+          titleInput={TEXTS.NewArticles.form.imageArticlesTitle}
+          placeholderInput={TEXTS.NewArticles.form.placeholderImageArticles}
+          isTitle={true}
+        />
+        <p className='text-primary text-[16px] font-semibold leading-6 tracking-normal'>
+          {TEXTS.NewArticles.form.tags}
+        </p>
+        {isLoadingTags ? (
+          <p className='text-gray-500'>Carregando tags...</p>
+        ) : (
+          <div className="flex flex-wrap gap-2">
+            {availableTags.map((tag) => {
+              const isSelected = selectedTagIds.includes(tag.id);
+              return (
+                <Badge
+                  key={tag.id}
+                  onClick={() => toggleTag(tag.id)}
+                  className={`${isSelected
+                    ? 'bg-button-primary text-placeholder-input text-[14px] font-medium leading-[1.3125rem] tracking-normal cursor-pointer px-4 w-fit h-8'
+                    : 'bg-button-primary/80 text-primary text-[14px] font-medium leading-[1.3125rem] tracking-normal cursor-pointer px-4 w-fit h-8'}`}
+                >
+                  <p className='mt-1'>
+                    {tag.name}
+                  </p>
+                </Badge>
+              )
+            })}
+          </div>
+        )}
+        <TextareaGlobal
+          isTitle={true}
+          valueTextArea={content}
+          onChangeTextarea={(e) => {
+            setContentState(e.target.value)
+          }}
+          titleTextArea={TEXTS.NewArticles.form.content}
+          placeholderTextArea={TEXTS.NewArticles.form.placeholderContent}
+        />
       </form>
     </main>
   )

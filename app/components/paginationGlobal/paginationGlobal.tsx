@@ -9,17 +9,17 @@ import {
 } from "@/components/ui/pagination";
 import { PaginationProps } from '@/lib/types';
 
-export default function PaginationGlobal({ 
-  currentPage, 
-  totalPages, 
-  onPageChange 
+export default function PaginationGlobal({
+  currentPage,
+  totalPages,
+  onPageChange
 }: PaginationProps) {
 
   //FUNÇÃO ASSÍNCRONA PARA OBTER PÁGINAS VISÍVEIS
   const getVisiblePages = () => {
     const pages = [];
-    const maxVisible = 3; 
-    
+    const maxVisible = 3;
+
     if (totalPages <= maxVisible) {
       for (let i = 1; i <= totalPages; i++) {
         pages.push(i);
@@ -27,7 +27,7 @@ export default function PaginationGlobal({
     } else {
 
       pages.push(1);
-      
+
       if (currentPage > 2) {
         if (currentPage > 3) {
           pages.push('ellipsis1');
@@ -36,18 +36,18 @@ export default function PaginationGlobal({
           pages.push(currentPage);
         }
       }
-      
+
       if (currentPage < totalPages - 1) {
         if (currentPage < totalPages - 2) {
           pages.push('ellipsis2');
         }
       }
-      
+
       if (totalPages > 1) {
         pages.push(totalPages);
       }
     }
-    
+
     return pages;
   };
 
@@ -82,9 +82,8 @@ export default function PaginationGlobal({
               return (
                 <PaginationItem key={page}>
                   <PaginationLink
-                    className={`h-8 w-8 sm:h-10 sm:w-10 text-primary text-xs sm:text-[14px] leading-[21px] tracking-normal font-bold rounded-[20px] border-none cursor-pointer ${
-                      currentPage === page ? "bg-button-secondary" : "bg-button-primary hover:bg-button-secondary"
-                    }`}
+                    className={`h-8 w-8 sm:h-10 sm:w-10 text-primary text-xs sm:text-[14px] leading-[21px] tracking-normal font-bold rounded-[20px] border-none cursor-pointer ${currentPage === page ? "bg-button-secondary" : "bg-button-primary hover:bg-button-secondary"
+                      }`}
                     isActive={currentPage === page}
                     onClick={() => handlePageClick(page as number)}
                   >

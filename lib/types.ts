@@ -14,7 +14,6 @@ export interface Tag {
   createdAt: Date;
 }
 
-
 //TIPO DE DADOS AUTHCONTEXT
 export interface AuthContextType {
   user: User | null;
@@ -26,29 +25,42 @@ export interface AuthContextType {
 
 // TIPOS DE DADOS DO ARTICLES
 export interface Article {
+  id: string;
+  title: string;
+  createdAt: Date;
+  updateAt: Date;
+  avatar: string;
+  author: {
     id: string;
-    title: string;
-    createdAt: Date;
-    updateAt: Date;
+    name: string;
     avatar: string;
-    author: {
-      id: string;
-      name: string;
-      avatar: string;
-    };
-    content: string;
-    tags: string[];
   };
+  content: string;
+  tags: string[];
+}
 
 // TIPO DE DADOS DO ARTIGO DETALHADO
 export interface ArticleDetailData {
+  id: string;
+  title: string;
+  content: string;
+  authorId: string;
+  createdAt: string;
+  updatedAt: string;
+  avatar: string;
+  author: {
     id: string;
-    title: string;
-    content: string;
-    authorId: string;
+    email: string;
+    name: string;
+    avatar: string;
     createdAt: string;
     updatedAt: string;
-    avatar: string;
+  };
+  comments: Array<{
+    id: string;
+    content: string;
+    articleId: string;
+    authorId: string;
     author: {
       id: string;
       email: string;
@@ -57,33 +69,20 @@ export interface ArticleDetailData {
       createdAt: string;
       updatedAt: string;
     };
-    comments: Array<{
-        id: string;
-        content: string;
-        articleId: string;
-        authorId: string;
-        author: {
-            id: string;
-            email: string;
-            name: string;
-            avatar: string;
-            createdAt: string;
-            updatedAt: string;
-        };
-        parentId: string | null;
-        createdAt: string;
-        updatedAt: string;
-    }>;
-    tags: Array<{
-        id: string;
-        articleId: string;
-        tagId: string;
-        tag: {
-            id: string;
-            name: string;
-            createdAt: string;
-        };
-    }>;
+    parentId: string | null;
+    createdAt: string;
+    updatedAt: string;
+  }>;
+  tags: Array<{
+    id: string;
+    articleId: string;
+    tagId: string;
+    tag: {
+      id: string;
+      name: string;
+      createdAt: string;
+    };
+  }>;
 }
 
 //TIPOS DE COMPONENTES PROPS

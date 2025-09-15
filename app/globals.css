@@ -89,7 +89,7 @@
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
   --font-newsreader-sans: "Newsreader", sans-serif;
-  --font-newsreader-mono: "Newsreader", monospace;  
+  --font-newsreader-mono: "Newsreader", monospace;
 }
 
 .dark {
@@ -130,6 +130,7 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }

@@ -14,19 +14,19 @@ export const ConfirmDeleteModal = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div className="fixed inset-0 bg-gray/80 backdrop-blur-sm" onClick={onClose} />
-      
+
       <div className="relative bg-white rounded-lg shadow-xl sm:max-w-md w-full p-6 animate-fadeIn">
         <h3 className="text-lg font-bold text-primary mb-2">
-            {TEXTS.ConfimDeleteModal.title}
+          {TEXTS.ConfimDeleteModal.title}
         </h3>
-        
+
         <div className="mb-4">
           <p className="text-sm text-primary">
             {TEXTS.ConfimDeleteModal.itemDescription} <span className="text-primary font-bold">{itemName}</span>?
           </p>
           {itemDescription && (
             <p className="text-sm font-semibold text-muted-foreground mt-1">
-                {itemDescription}
+              {itemDescription}
             </p>
           )}
           <p className="text-sm text-bg-button-secondary mt-4">

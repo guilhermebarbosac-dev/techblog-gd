@@ -4,17 +4,17 @@ import React from 'react'
 
 export default function ButtonSecondary({
   children,
-  onClick, 
+  onClick,
   type
 }: ButtonSecondaryProps) {
   return (
     <>
-      <Button 
+      <Button
         className='bg-button-primary text-color-button-secondary w-10 h-10 hover:bg-button-primary/70 active:scale-95 cursor-pointer transition-all duration-200'
-        onClick={ onClick }
-        type={ type }
+        onClick={onClick}
+        type={type}
       >
-        { children }
+        {children}
       </Button>
     </>
   )

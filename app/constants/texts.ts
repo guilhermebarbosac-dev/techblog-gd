@@ -5,34 +5,33 @@ const TEXTS = {
   description: "Blog para o time de desenvolvimento",
   //PÁGINA DE LOGIN
   pageLogin: {
-    header:{
-        button: {
-            title: "Entrar"
-        },
-        title: "TechBlog",
+    header: {
+      button: {
+        title: "Entrar",
+      },
+      title: "TechBlog",
     },
     //CONTEÚDO INICIAL PRIMEIRA PÁGINA [/login]
     main: {
-        title: "Insights & Learning",
-        subtitle: "Explorando tendências Tech, um post por vez",
-        button: {
-            title: "Começar a Ler",
-        }
+      title: "Insights & Learning",
+      subtitle: "Explorando tendências Tech, um post por vez",
+      button: {
+        title: "Começar a Ler",
+      },
     },
     //CONTEÚDO DO FORMULÁRIO DE LOGIN [/login/form]
     formLogin: {
-        title: "Bem-vindo de volta",
-        form: {
-            labelEmail: "Email",
-            placeholderEmail: "Digite seu email",
-            labelPassword: "Senha",
-            placeholderPassword: "Digite sua senha",
-        },
-        button: {
-            title: "Entrar",
-        }
-
-    }
+      title: "Bem-vindo de volta",
+      form: {
+        labelEmail: "Email",
+        placeholderEmail: "Digite seu email",
+        labelPassword: "Senha",
+        placeholderPassword: "Digite sua senha",
+      },
+      button: {
+        title: "Entrar",
+      },
+    },
   },
   //CONTEÚDO DA PÁGINA HOME [/home]
   pageHome: {
@@ -40,11 +39,11 @@ const TEXTS = {
     pageTitleButton: "Criar Artigo",
     searchPlaceholder: "Pesquisar ...",
     articlesTags: {
-        tag1: "Frontend",
-        tag2: "Backend",
-        tag3: "Mobile",
-        tag4: "DevOps",
-        tag5: "AI",
+      tag1: "Frontend",
+      tag2: "Backend",
+      tag3: "Mobile",
+      tag4: "DevOps",
+      tag5: "AI",
     },
     noArticlesMessage: "Nenhum artigo encontrado.",
   },
@@ -64,35 +63,35 @@ const TEXTS = {
         buttons: {
           titleShowComments: "Ver mais",
           titleHideComments: "Ocultar",
-          titleFinalReply: "respostas"
-        }
-      }
-    }
+          titleFinalReply: "respostas",
+        },
+      },
+    },
   },
   //CONTEÚDO DA PÁGINA DE NOVO ARTIGO
   NewArticles: {
     pageTitle: "Novo artigo",
     form: {
-        title: "Título do Artigo *",
-        placeholderTitle: "Título",
-        imageArticlesTitle: "Imagem do Artigo",
-        placeholderImageArticles: "URL da imagem",
-        tags: "Tags *",
-        content: "Conteúdo *",
-        placeholderContent: "Escreva aqui seu artigo...",
-        button: {
-            title: "Criar Artigo",
-        }
-    }
+      title: "Título do Artigo *",
+      placeholderTitle: "Título",
+      imageArticlesTitle: "Imagem do Artigo",
+      placeholderImageArticles: "URL da imagem",
+      tags: "Tags *",
+      content: "Conteúdo *",
+      placeholderContent: "Escreva aqui seu artigo...",
+      button: {
+        title: "Criar Artigo",
+      },
+    },
   },
   //CONTEÚDO DA PÁGINA DE EDITAR ARTIGO
   EditArticles: {
-   pageTitle: "Editar artigo",
-   form: {
+    pageTitle: "Editar artigo",
+    form: {
       button: {
         title: "Salvar",
-      }
-   }
+      },
+    },
   },
   //CONTEÚDO DO MODAL DE CONFIRMAR EXCLUSÃO DE ARTIGO
   ConfimDeleteModal: {
@@ -101,9 +100,9 @@ const TEXTS = {
     footerInfo: "Essa ação é Irreversível.",
     buttons: {
       confirm: "Delete",
-      cancel: "Cancelar"
-    }
-  }
-}
+      cancel: "Cancelar",
+    },
+  },
+};
 
-export default TEXTS
+export default TEXTS;

@@ -29,7 +29,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const fetchCurrentUser = async () => {
     try {
       setLoading(true);
-      
+
       //TENTA BUSCAR O TOKEN DO USUÁRIO NO COOKIE USANDO A FUNÇÃO AUXILIAR
       const token = getCookie('x-token-session');
       const userId = getCookie('x-current-user');;
@@ -44,7 +44,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             },
             credentials: 'include'
           });
-          
+
           if (response.ok) {
             const data = await response.json();
             if (data.validate && data.user) {
@@ -88,7 +88,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           body: JSON.stringify({ token }),
           credentials: 'include'
         });
-        
+
         if (response.ok) {
           const data = await response.json();
           if (data.validate && data.user) {
@@ -138,7 +138,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const login = (userData: User) => {
     setUser(userData);
   };
-  
+
   //FUNÇÃO PARA FAZER LOGOUT
   const logout = async (): Promise<boolean> => {
     try {
@@ -146,16 +146,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const response = await fetch('/api/login/session-expired', {
         method: 'DELETE'
       });
-      
+
       //LIMPA O ESTADO DO USUÁRIO
       setUser(null);
-      
+
       //REMOVE OS COOKIES DO NAVEGADOR
       if (typeof document !== 'undefined') {
         document.cookie = 'x-token-session=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
         document.cookie = 'x-current-user=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
       }
-      
+
       return response.ok;
     } catch (error) {
       console.error('Erro ao fazer logout:', error);

@@ -27,35 +27,35 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  
+
   return (
     <html lang="en">
       <body
         className={`${newsReaderSans.variable} ${newsReaderMono.variable} antialiased`}
       >
         <AuthProvider>
-            {children}
-            <Toaster position="top-right" toastOptions={{
+          {children}
+          <Toaster position="top-right" toastOptions={{
+            duration: 3000,
+            style: {
+              background: '#363636',
+              color: '#fff',
+            },
+            success: {
               duration: 3000,
-              style: {
-                background: '#363636',
-                color: '#fff',
+              iconTheme: {
+                primary: '#10B981',
+                secondary: '#FFFFFF',
               },
-              success: {
-                duration: 3000,
-                iconTheme: {
-                  primary: '#10B981',
-                  secondary: '#FFFFFF',
-                },
+            },
+            error: {
+              duration: 4000,
+              iconTheme: {
+                primary: '#EF4444',
+                secondary: '#FFFFFF',
               },
-              error: {
-                duration: 4000,
-                iconTheme: {
-                  primary: '#EF4444',
-                  secondary: '#FFFFFF',
-                },
-              },
-            }} />
+            },
+          }} />
         </AuthProvider>
       </body>
     </html>

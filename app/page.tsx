@@ -53,7 +53,7 @@ export default function Home() {
             "#060606",
             "#1e1e1e",
           ]}
-          
+
           className="w-full h-full"
         />
       </div>
@@ -92,12 +92,12 @@ export default function Home() {
             <motion.div
               animate={{
                 y: shouldShowButton ? -25 : 0,
-                
+
               }}
               transition={{
-                y: { 
-                  type: "spring", 
-                  stiffness: 200, 
+                y: {
+                  type: "spring",
+                  stiffness: 200,
                   damping: 25,
                   mass: 0.8,
                   ease: "easeInOut"
@@ -140,35 +140,35 @@ export default function Home() {
                 <motion.button
                   onClick={handleNavigateToTechblog}
                   className="group cursor-pointer relative px-10 py-4 bg-[#141c0d] backdrop-blur-xl text-white font-semibold text-lg rounded-2xl shadow-2xl transition-all duration-300 hover:shadow-[#94c833]/30  overflow-hidden"
-                  whileHover={{ 
-                    scale: 1.02, 
+                  whileHover={{
+                    scale: 1.02,
                     y: -1,
                     transition: { type: "spring", stiffness: 400, damping: 25 }
                   }}
-                  whileTap={{ 
+                  whileTap={{
                     scale: 0.98,
                     transition: { type: "spring", stiffness: 600, damping: 30 }
                   }}
                 >
-                  <motion.div 
-                    className="absolute inset-0 rounded-2xl bg-gradient-to-r from-button-primary/10 to-transparent" 
+                  <motion.div
+                    className="absolute inset-0 rounded-2xl bg-gradient-to-r from-button-primary/10 to-transparent"
                     initial={{ opacity: 0 }}
                     animate={{ opacity: isButtonHovered ? 1 : 0 }}
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                   />
 
                   <span className="relative z-10 flex items-center gap-3 tracking-wide">
-                    <svg 
-                      className="w-5 h-5 text-button-primary" 
-                      fill="none" 
-                      stroke="currentColor" 
+                    <svg
+                      className="w-5 h-5 text-button-primary"
+                      fill="none"
+                      stroke="currentColor"
                       viewBox="0 0 24 24"
                     >
-                      <path 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round" 
-                        strokeWidth={2} 
-                        d="M13 7l5 5m0 0l-5 5m5-5H6" 
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13 7l5 5m0 0l-5 5m5-5H6"
                       />
                     </svg>
                     Acessar TechBlog

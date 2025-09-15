@@ -4,26 +4,26 @@ import React from 'react'
 
 
 
-export default function TextareaGlobal({ 
-  titleTextArea, 
-  placeholderTextArea, 
-  valueTextArea, 
-  onChangeTextarea, 
-  isTitle 
+export default function TextareaGlobal({
+  titleTextArea,
+  placeholderTextArea,
+  valueTextArea,
+  onChangeTextarea,
+  isTitle
 }: TextareaGlobalProps) {
   return (
     <div>
-        {isTitle && titleTextArea &&         
+      {isTitle && titleTextArea &&
         <p className='text-primary text-[16px] font-semibold leading-6 tracking-normal'>
-            {titleTextArea}
+          {titleTextArea}
         </p>
-        }
-        <Textarea
-           className="h-[144px] min-h-[144px] rounded-[12px] p-4 bg-button-primary placeholder:text-muted"
-           placeholder={ placeholderTextArea }
-           value={ valueTextArea }
-           onChange={ onChangeTextarea }
-        />
+      }
+      <Textarea
+        className="h-[144px] min-h-[144px] rounded-[12px] p-4 bg-button-primary placeholder:text-muted"
+        placeholder={placeholderTextArea}
+        value={valueTextArea}
+        onChange={onChangeTextarea}
+      />
     </div>
   )
 }
