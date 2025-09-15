@@ -6,9 +6,27 @@ import { NextResponse } from "next/server"
 export async function POST(request: Request) { 
 
     try {
-        //DESCONSTRUÇÃO DE OBJETO DA REQUISIÇÃO
-        const body = await request.json()
-        const token = body.token
+        //TENTATIVA DE OBTER TOKEN DO BODY OU DOS COOKIES
+        let token = null;
+        
+        try {
+            const body = await request.json()
+            token = body.token
+        } catch (error) {
+            console.error( error);
+        }
+        
+        //SE O TOKEN NÃO FOR ENCONTRADO NO BODY, TENTA PEGAR DOS COOKIES
+        if (!token) {
+            const cookieHeader = request.headers.get('cookie');
+            if (cookieHeader) {
+                const cookies = cookieHeader.split(';');
+                const tokenCookie = cookies.find(cookie => cookie.trim().startsWith('x-token-session='));
+                if (tokenCookie) {
+                    token = tokenCookie.split('=')[1];
+                }
+            }
+        }
 
         //VALIDAÇÃO SE O TOKEN FOI PASSADO
         if(!token) {

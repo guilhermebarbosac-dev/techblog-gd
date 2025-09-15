@@ -21,6 +21,7 @@ export interface AuthContextType {
   loading: boolean;
   login: (user: User) => void;
   fetchCurrentUser: () => Promise<void>;
+  logout: () => Promise<boolean>;
 }
 
 // TIPOS DE DADOS DO ARTICLES

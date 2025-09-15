@@ -12,61 +12,119 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  //FUNÇÃO ASSÍNCRONA PARA BUSCAR O USUÁRIO ATUAL
+  //FUNÇÃO AUXILIAR PARA LER COOKIES DE FORMA MAIS ROBUSTA
+  const getCookie = (name: string): string | null => {
+    if (typeof document === 'undefined') return null;
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+      const [cookieName, cookieValue] = cookie.trim().split('=');
+      if (cookieName === name) {
+        return cookieValue ? decodeURIComponent(cookieValue) : null;
+      }
+    }
+    return null;
+  };
+
+  //FUNÇÃO PARA BUSCAR O USUÁRIO ATUAL
   const fetchCurrentUser = async () => {
     try {
       setLoading(true);
-      //TENTA BUSCAR O TOKEN DO USUÁRIO NO COOKIE
-      let token = null;
-      if (typeof document !== 'undefined') {
-        const cookieString = document.cookie;
-        const tokenCookie = cookieString.split(';').find(cookie => cookie.trim().startsWith('x-token-session='));
-        if (tokenCookie) {
-          token = tokenCookie.split('=')[1];
+      
+      //TENTA BUSCAR O TOKEN DO USUÁRIO NO COOKIE USANDO A FUNÇÃO AUXILIAR
+      const token = getCookie('x-token-session');
+      const userId = getCookie('x-current-user');;
+
+      //SE NÃO ENCONTRAR, TENTA VALIDAR VIA API
+      if (!token || !userId) {
+        try {
+          const response = await fetch('/api/login/validate-session', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            credentials: 'include'
+          });
+          
+          if (response.ok) {
+            const data = await response.json();
+            if (data.validate && data.user) {
+              setUser({
+                id: data.user.id,
+                name: data.user.name,
+                email: data.user.email,
+                avatar: data.user.avatar
+              });
+              setLoading(false);
+              return;
+            } else {
+              //SESSÃO INVALIDA OU EXPIRADA - LIMPA O ESTADO
+              console.log('Sessão inválida ou expirada:', data.error);
+              setUser(null);
+              setLoading(false);
+              return;
+            }
+          } else {
+            //ERRO NA RESPOSTA - LIMPA O ESTADO
+            console.log('Erro na validação da sessão');
+            setUser(null);
+            setLoading(false);
+            return;
+          }
+        } catch (apiError) {
+          console.log('Erro na validação via API:', apiError);
+          setUser(null);
+          setLoading(false);
+          return;
         }
       }
 
-      //SE NÃO ENCONTRAR, DESLOGA O USUÁRIO E RETORNA
-      if (!token) {
+      //VALIDA VIA API O TOKEN PARA VER SE AINDA É VÁLIDO
+      try {
+        const response = await fetch('/api/login/validate-session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ token }),
+          credentials: 'include'
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          if (data.validate && data.user) {
+            setUser({
+              id: data.user.id,
+              name: data.user.name,
+              email: data.user.email,
+              avatar: data.user.avatar
+            });
+          } else {
+            //TOKEN EXPIRADO OU INVÁLIDO - LIMPA O ESTADO
+            console.log('Token expirado ou inválido:', data.error);
+            setUser(null);
+            //LIMPA OS COOKIES CASO INVÁLIDO
+            if (typeof document !== 'undefined') {
+              document.cookie = 'x-token-session=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+              document.cookie = 'x-current-user=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+            }
+          }
+        } else {
+          //ERRO NA VALIDAÇÃO - LIMPA O ESTADO
+          console.log('Erro na validação do token');
+          setUser(null);
+          if (typeof document !== 'undefined') {
+            document.cookie = 'x-token-session=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+            document.cookie = 'x-current-user=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+          }
+        }
+      } catch (validationError) {
+        console.log('Erro na validação do token:', validationError);
         setUser(null);
-        setLoading(false);
-        return;
+        if (typeof document !== 'undefined') {
+          document.cookie = 'x-token-session=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+          document.cookie = 'x-current-user=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+        }
       }
-      
-      //SE ENCONTRAR, CHAMA A API PARA VALIDAR A SESSÃO E RECUPERAR OS DADOS DO USUÁRIO
-      const response = await fetch('/api/login/validate-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token })
-      });
-      
-      //SE A RESPOSTA FOR CONTRÁRIA A OK O USUÁRIO É SETADO COMO NULO E O LOADING É SETADO COMO FALSE
-      if (!response.ok) {
-        setUser(null);
-        setLoading(false);
-        return;
-      }
-      
-      //SE A RESPOSTA FOR OK, PUXA OS DADOS DO USUÁRIO E ARMAZENA EM DATA
-      const data = await response.json();
-
-      //VERIFICA SE O USUÁRIO É VÁLIDO
-      if (!data.validate) {
-        setUser(null);
-        setLoading(false);
-        return;
-      }
-      
-      //SE O USUÁRIO É VÁLIDO ARMAZENA OS DADOS DELE NA VARIAVÉL USER
-      setUser({
-        id: data.user.id,
-        name: data.user.name,
-        email: data.user.email,
-        avatar: data.user.avatar
-      });
-
     } catch (error) {
       //TRATAMENTO DE ERRO E IMPRESSÃO NO CONSOLE.
       console.error('Erro ao obter usuário atual:', error);
@@ -81,15 +139,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setUser(userData);
   };
   
-  //HOOK DE EFEITO PARA VALIDAR SESSÃO DO USUÁRIO PERIODICAMENTE
-  useEffect(() => {
-    //VERIFICA A SESSÃO DE 30 EM 30 MINUTOS
-    const interval = setInterval(() => {
-      fetchCurrentUser();
-    }, 30 * 60 * 1000);
-
-    return () => clearInterval(interval);
-  }, []);
+  //FUNÇÃO PARA FAZER LOGOUT
+  const logout = async (): Promise<boolean> => {
+    try {
+      //CHAMA A API PARA EXPIRAR A SESSÃO
+      const response = await fetch('/api/login/session-expired', {
+        method: 'DELETE'
+      });
+      
+      //LIMPA O ESTADO DO USUÁRIO
+      setUser(null);
+      
+      //REMOVE OS COOKIES DO NAVEGADOR
+      if (typeof document !== 'undefined') {
+        document.cookie = 'x-token-session=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+        document.cookie = 'x-current-user=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+      }
+      
+      return response.ok;
+    } catch (error) {
+      console.error('Erro ao fazer logout:', error);
+      //CASO A API FALHE LIMPA OS COOKIES DIRETAMENTE
+      setUser(null);
+      if (typeof document !== 'undefined') {
+        document.cookie = 'x-token-session=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+        document.cookie = 'x-current-user=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+      }
+      return false;
+    }
+  };
 
   //HOOK DE EFEITO PARA BUSCAR O USUÁRIO ATUAL
   useEffect(() => {
@@ -97,7 +175,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, login, loading, fetchCurrentUser }}>
+    <AuthContext.Provider value={{ user, login, loading, fetchCurrentUser, logout }}>
       {children}
     </AuthContext.Provider>
   );

@@ -79,6 +79,15 @@ export async function POST(request: Request) {
       path: '/'
     });
 
+    //ARMAZENAMENTO DO USER ID EM UM COOKIE DO NAVEGADOR PARA RECUPERAÇÃO DE AUTENTICAÇÃO
+    response.cookies.set('x-current-user', user.id, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      expires: expiresAt,
+      sameSite: 'lax',
+      path: '/'
+    });
+
     //RETORNO DE SESSÃO E USUÁRIO PARA O FRONTEND
     return response;
     } catch (error) {

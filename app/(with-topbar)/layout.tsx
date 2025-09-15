@@ -10,6 +10,8 @@ import { LayoutProps } from "@/lib/types"
 import { LogOut } from "lucide-react";
 import toast from "react-hot-toast";
 import { useAuth } from "../contexts/AuthContext";
+import { Loader2 } from "lucide-react";
+import { useEffect, useState } from "react";
 
 
 
@@ -18,19 +20,19 @@ export default function Layout({ children }: LayoutProps) {
   const router = useRouter();
 
   //VARIÁVEIS DE ESTADO PARA ARMAZENAMENTO DE DADOS DO USUÁRIO
-  const { user: currentUser } = useAuth()
+  const { user: currentUser, loading, logout } = useAuth()
 
   //FUNÇÃO PARA DESLOGAR O USUÁRIO
   const handleLogout = async () => {
     try {
-      const response = await fetch("/api/login/session-expired", {
-        method: "DELETE",
-      });
-
-      if(response.ok) {
+      const success = await logout();
+      
+      if(success) {
         toast.success("Logout realizado com sucesso");
         router.push("/login/form");
         router.refresh()
+      } else {
+        toast.error("Erro ao fazer logout");
       }
     } catch (error) {
       console.error(error);
@@ -53,6 +55,15 @@ export default function Layout({ children }: LayoutProps) {
       >
         <LogOut className="w-5 h-5" />
       </ButtonSecondary>
+    );
+  }
+
+  //LOADER DE CARREGAMENTO DO CURRENT USER
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className="w-8 h-8 animate-spin" />
+      </div>
     );
   }
 

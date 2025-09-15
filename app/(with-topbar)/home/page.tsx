@@ -31,13 +31,13 @@ export default function HomePage() {
   const router = useRouter();
 
   //HOOK BUSCA USUÁRIO EM CONTEXTO DA APLICAÇÃO
-  const { user: currentUser } = useAuth()
+  const { user: currentUser, loading: authLoading } = useAuth()
 
   //VARIAVÉIS DE ESTADO QUE ARMAZENA OS DADOS PARA MANIPULAÇÃO
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [articles, setArticles] = useState<Article[]>([])
+  const [currentPage, setCurrentPage] = useState(1)
   const [isOpen, setIsOpen] = useState(false)
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false)
   const [search, setSearch] = useState('')
   const [tags, setTags] = useState<string[]>([])
   const [selectedTag, setSelectedTag] = useState<string | undefined>(undefined)
@@ -77,18 +77,6 @@ export default function HomePage() {
     setSearch(search);
     filteredSearch(search, selectedTag)
   },[filteredSearch, selectedTag])
-
-  //FUNÇÃO ASSÍNCRONA PARA EXPIRAR SESSÃO DO USUÁRIO
-  const expiredSession = async () => {
-    const response = await  fetch('/api/login/session-expired', {
-      method: 'DELETE'
-    })
-    if(response.ok) {
-      toast.success("Sessão expirada");
-      router.push("/login/form");
-      router.refresh();
-    }
-  }
 
   //FUNÇÃO ASSÍNCRONA PARA BUSCAR ARTIGOS
   const fetchArticles = async () => {
@@ -188,9 +176,12 @@ export default function HomePage() {
 
   //HOOK DE EFEITO PARA CARREGAMENTO INICIAL DAS TAGS E ARTIGOS
   useEffect(() => {
-    fetchArticles();
-    fetchTags();
-  }, []);
+    // Só busca artigos quando o usuário estiver carregado
+    if (!authLoading) {
+      fetchArticles();
+      fetchTags();
+    }
+  }, [authLoading]);
 
   //FUNÇÃO QUE VERIFICA SE O USUÁRIO É O AUTOR DO ARTIGO
   const isArticleAuthor = (article: Article) => {
@@ -205,16 +196,15 @@ export default function HomePage() {
     (currentPage - 1) * ITEMS_PER_PAGE,
     currentPage * ITEMS_PER_PAGE
   );
-  
-  //VALIDAÇÃO DE USUÁRIO NÃO AUTENTICADO OU EXPIRADO
-  if (!currentUser) {
-    expiredSession()
-    return null;
-  }
+
 
   //VALIDAÇÃO DE CARREGAMENTO DE DADOS
-  if(isLoading) {
-    return (<Loader2 className="w-8 h-8 animate-spin"/>)
+  if(isLoading || authLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className="w-8 h-8 animate-spin"/>
+      </div>
+    );
   } else if (articles.length === 0) {
     return (
       <div className="flex items-center justify-center min-h-96 w-full">
@@ -222,8 +212,6 @@ export default function HomePage() {
       </div>
     )
   }
-
-
 
   return (
     <main className="flex flex-col items-center justify-center">

@@ -30,6 +30,7 @@ export async function DELETE() {
             )
             //DELETA O COOKIE DO NAVEGADOR
             response.cookies.delete('x-token-session')
+            response.cookies.delete('x-current-user')
             return response
         }
 
@@ -45,6 +46,7 @@ export async function DELETE() {
         )
         //DELETAÇÃO DO COOKIE NO NAVEGADOR
         response.cookies.delete('x-token-session')
+        response.cookies.delete('x-current-user')
         //RETORNA PARA O FRONTEND COM MENSAGEM E STATUS
         return response
     } catch (error) {
