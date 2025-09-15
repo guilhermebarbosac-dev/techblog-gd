@@ -33,6 +33,15 @@ export default function Home() {
     router.push("/login");
   };
 
+  const floatingElements = [
+    { id: 1, initialX: 200, initialY: 100 },
+    { id: 2, initialX: 500, initialY: 300 },
+    { id: 3, initialX: 800, initialY: 150 },
+    { id: 4, initialX: 300, initialY: 600 },
+    { id: 5, initialX: 700, initialY: 400 },
+    { id: 6, initialX: 1000, initialY: 200 },
+  ];
+
   return (
     <div className="relative min-h-screen w-full overflow-hidden bg-background">
       <div className="absolute inset-0 opacity-90">
@@ -50,13 +59,13 @@ export default function Home() {
       </div>
 
       <div className="absolute inset-0">
-        {[...Array(6)].map((_, i) => (
+        {floatingElements.map((element) => (
           <motion.div
-            key={i}
+            key={element.id}
             className="absolute w-2 h-2 bg-button-primary/20 rounded-full"
             initial={{
-              x: Math.random() * windowWidth,
-              y: Math.random() * windowHeight,
+              x: element.initialX,
+              y: element.initialY,
             }}
             animate={{
               x: Math.random() * windowWidth,
