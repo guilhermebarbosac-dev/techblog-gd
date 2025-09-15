@@ -78,7 +78,7 @@ techblog-gd/
 - **Decisão 2**: Segunda decisão tomada foi de padronizar os botões utilizando componentes reutilizáveis que criei para os Buttons `ButtonPrimary.tsx` e `ButtonSecondary.tsx` que se encontram na pasta `components/buttonsGlobal/` resolvi utilizar o `ButtonSecondary` para os botões de Editar e Deletar um artigo criado pelo usuário, tornando padronizado todo o sistema de Buttons e estilização seguindo cores da identidade Visual, acredito que a UI/UX do sistema seja mais simples e intuitiva para o usuário trazendo uma experiência visual mais agradável.
 - **Decisão 3**: A terceira e última decisão tomada para a page Home, foi na paginação da listagem de artigos, onde foi também implementado o `paginationGlobal.tsx` que se encontra na pasta `components/paginationGlobal/` e pensando também na usabilidade do usuário e querendo trazer uma identidade visual fortalecida pelo sistema, decidi utilizar para as cores dos buttons de paginação as mesmas dos botões `ButtonPrimary.tsx` e `ButtonSecondary.tsx`.
 
-E outro ponto de decisão foi junto a page Home (/home) também para o mobile, minha percepção para a decisão tomada foi que quando título grandes mantendo as tags junto ao lado superior direito do título existia uma quebra de layout um pouco incômoda então optei por trazer as TAGs diferente do proposto pelo mockup resolvi adiciona-las ao final depois do conteúdo como no anexo acima, e também percebi que para o layout mobile não se tinha um botão para criar um novo artigo então optei por deixar também esse botão.
+> E outro ponto de decisão foi junto a page Home (/home) também para o mobile, minha percepção para a decisão tomada foi que quando título grandes mantendo as tags junto ao lado superior direito do título existia uma quebra de layout um pouco incômoda então optei por trazer as TAGs diferente do proposto pelo mockup resolvi adiciona-las ao final depois do conteúdo como no anexo acima, e também percebi que para o layout mobile não se tinha um botão para criar um novo artigo então optei por deixar também esse botão.
 
 ![1757955706275](images/DOCUMENTACAO/1757955706275.png)
 
@@ -138,10 +138,10 @@ Ao realizar o logout, a sessão é destruída e o token de acesso armazenado nos
 #### Regras Backend Artigos
 
 **CREATE**
-Para criar um artigo é necessário estar logado, Título e Conteúdo são obrigatórios sem essas informações o sistema não permitirá a criação do artigo.
+Para criar um artigo é necessário estar logado, Título, Tags e Conteúdo são obrigatórios sem essas informações o sistema não permitirá a criação do artigo.
 
 **UPDATE**
-Para editar um artigo é necessário estar logado, Título e Conteúdo são obrigatórios sem essas informações o sistema não exibirá a opção de edição do artigo para o usuário que não é o autor.
+Para editar um artigo é necessário estar logado, Título, Tags e Conteúdo são obrigatórios sem essas informações o sistema não exibirá a opção de edição do artigo para o usuário que não é o autor.
 
 **DELETE**
 Para deletar um artigo é necessário estar logado, o usuário deve ser o autor do artigo para que o sistema permita a exclusão e assim exiba o botão de excluir.
