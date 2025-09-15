@@ -1,0 +1,122 @@
+{
+  "article": {
+    "id": 1,
+    "title": "Design system principles",
+    "subtitle": "Frontend",
+    "publishDate": "Publicado por Ana Maria • 4 JAN 2024",
+    "avatar": "https://images.pexels.com/photos/33551085/pexels-photo-33551085.jpeg?_gl=1*behp8s*_ga*MTMzMDUwMDE5MS4xNzU3NDE4MDM4*_ga_8JE65Q40S6*czE3NTc2MTU5ODgkbzYkZzAkdDE3NTc2MTU5ODgkajYwJGwwJGgw",
+    "author": {
+      "name": "Ana Maria",
+      "avatar": "https://images.pexels.com/photos/33551085/pexels-photo-33551085.jpeg?_gl=1*behp8s*_ga*MTMzMDUwMDE5MS4xNzU3NDE4MDM4*_ga_8JE65Q40S6*czE3NTc2MTU5ODgkbzYkZzAkdDE3NTc2MTU5ODgkajYwJGwwJGgw"
+    },
+    "content": "Um design system é uma coleção de componentes reutilizáveis, orientada por padrões claros, que podem ser combinados para construir qualquer número de aplicações. É um documento vivo que ao longo do tempo, conforme as necessidades do produto mudam e novos padrões surgem. Ao manter uma única fonte de verdade, designers e desenvolvedores podem trabalhar de forma mais eficiente, reduzir duplicações e garantir consistência em todos os pontos de contato.",
+    "tags": ["design system", "frontend", "UI/UX"]
+  },
+  "comments": {
+    "list": [
+      {
+        "id": 1,
+        "author": {
+          "name": "Maria Luiza",
+          "avatar": "https://images.pexels.com/photos/33551085/pexels-photo-33551085.jpeg?_gl=1*behp8s*_ga*MTMzMDUwMDE5MS4xNzU3NDE4MDM4*_ga_8JE65Q40S6*czE3NTc2MTU5ODgkbzYkZzAkdDE3NTc2MTU5ODgkajYwJGwwJGgw",
+          "timeAgo": "2d"
+        },
+        "content": "Ótimo artigo! Acho importante lembrar que um design system não é apenas um conjunto de componentes, mas também uma forma de pensar sobre o produto e como ele é construído.",
+        "replies": [
+          {
+            "id": 11,
+            "author": {
+              "name": "Gilberto",
+              "avatar": "https://images.pexels.com/photos/33551085/pexels-photo-33551085.jpeg?_gl=1*behp8s*_ga*MTMzMDUwMDE5MS4xNzU3NDE4MDM4*_ga_8JE65Q40S6*czE3NTc2MTU5ODgkbzYkZzAkdDE3NTc2MTU5ODgkajYwJGwwJGgw",
+              "timeAgo": "2d"
+            },
+            "content": "Concordo. Trata-se de criar uma linguagem compartilhada entre designers e desenvolvedores, para que todos falem a mesma língua. Um design system não é apenas um conjunto de componentes, mas também uma forma de pensar sobre o produto e como ele é construído.",
+            "likes": 8
+          },
+          {
+            "id": 12,
+            "author": {
+              "name": "Gilberto",
+              "avatar": "https://images.pexels.com/photos/33551085/pexels-photo-33551085.jpeg?_gl=1*behp8s*_ga*MTMzMDUwMDE5MS4xNzU3NDE4MDM4*_ga_8JE65Q40S6*czE3NTc2MTU5ODgkbzYkZzAkdDE3NTc2MTU5ODgkajYwJGwwJGgw",
+              "timeAgo": "2d"
+            },
+            "content": "Concordo. Trata-se de criar uma linguagem compartilhada entre designers e desenvolvedores, para que todos falem a mesma língua. Um design system não é apenas um conjunto de componentes, mas também uma forma de pensar sobre o produto e como ele é construído."
+          },
+                    {
+            "id": 13,
+            "author": {
+              "name": "Gilberto",
+              "avatar": "https://images.pexels.com/photos/33551085/pexels-photo-33551085.jpeg?_gl=1*behp8s*_ga*MTMzMDUwMDE5MS4xNzU3NDE4MDM4*_ga_8JE65Q40S6*czE3NTc2MTU5ODgkbzYkZzAkdDE3NTc2MTU5ODgkajYwJGwwJGgw",
+              "timeAgo": "2d"
+            },
+            "content": "Concordo. Trata-se de criar uma linguagem compartilhada entre designers e desenvolvedores, para que todos falem a mesma língua. Um design system não é apenas um conjunto de componentes, mas também uma forma de pensar sobre o produto e como ele é construído."
+          },
+          {
+            "id": 14,
+            "author": {
+              "name": "Gilberto",
+              "avatar": "https://images.pexels.com/photos/33551085/pexels-photo-33551085.jpeg?_gl=1*behp8s*_ga*MTMzMDUwMDE5MS4xNzU3NDE4MDM4*_ga_8JE65Q40S6*czE3NTc2MTU5ODgkbzYkZzAkdDE3NTc2MTU5ODgkajYwJGwwJGgw",
+              "timeAgo": "2d"
+            },
+            "content": "Concordo. Trata-se de criar uma linguagem compartilhada entre designers e desenvolvedores, para que todos falem a mesma língua. Um design system não é apenas um conjunto de componentes, mas também uma forma de pensar sobre o produto e como ele é construído."
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "author": {
+          "name": "Carlos",
+          "avatar": "https://images.pexels.com/photos/33551085/pexels-photo-33551085.jpeg?_gl=1*behp8s*_ga*MTMzMDUwMDE5MS41NzU3NDE4MDM4*_ga_8JE65Q40S6*czE3NTc2MTU5ODgkbzYkZzAkdDE3NTc2MTU5ODgkajYwJGwwJGgw",
+          "timeAgo": "3d"
+        },
+        "content": "@Gilberto Acho que você está certo. Um design system ajuda a preender a lacuna entre design e desenvolvimento, fornecendo uma base comum para que ambas as disciplinas possam trabalhar juntas.",
+        "likes": 5,
+        "replies": []
+      },
+      {
+        "id": 3,
+        "author": {
+          "name": "Eudora",
+          "avatar": "https://images.pexels.com/photos/33551085/pexels-photo-33551085.jpeg?_gl=1*behp8s*_ga*MTMzMDUwMDE5MS4xNzU3NDE4MDM4*_ga_8JE65Q40S6*czE3NTc2MTU5ODgkbzYkZzAkdDE3NTc2MTU5ODgkajYwJGwwJGgw",
+          "timeAgo": "3d"
+        },
+        "content": "@Carlos Exatamente. Trata-se de criar uma linguagem compartilhada entre designers e desenvolvedores, para que todos falem a mesma língua. Um design system não é apenas um conjunto de componentes, mas também uma forma de pensar sobre o produto e como ele é construído.",
+        "likes": 3,
+        "replies": []
+      },
+      {
+        "id": 4,
+        "author": {
+          "name": "Vinícius",
+          "avatar": "https://images.pexels.com/photos/33551085/pexels-photo-33551085.jpeg?_gl=1*behp8s*_ga*MTMzMDUwMDE5MS4xNzU3NDE4MDM4*_ga_8JE65Q40S6*czE3NTc2MTU5ODgkbzYkZzAkdDE3NTc2MTU5ODgkajYwJGwwJGgw",
+          "timeAgo": "4d"
+        },
+        "content": "Qual é a melhor maneira de começar a criar um design system? Alguma dica ou recurso que você recomendaria?",
+        "likes": 7,
+        "replies": []
+      },
+      {
+        "id": 5,
+        "author": {
+          "name": "Giulia",
+          "avatar": "https://images.pexels.com/photos/33551085/pexels-photo-33551085.jpeg?_gl=1*behp8s*_ga*MTMzMDUwMDE5MS4xNzU3NDE4MDM4*_ga_8JE65Q40S6*czE3NTc2MTU5ODgkbzYkZzAkdDE3NTc2MTU5ODgkajYwJGwwJGgw",
+          "timeAgo": "5d"
+        },
+        "content": "@Vinícius Existem várias abordagens diferentes para criar um design system, mas acho que o mais importante é começar pequeno e ir expandindo.",
+        "likes": 2,
+        "replies": []
+      },
+      {
+        "id": 6,
+        "author": {
+          "name": "Philipe",
+          "avatar": "https://images.pexels.com/photos/33551085/pexels-photo-33551085.jpeg?_gl=1*behp8s*_ga*MTMzMDUwMDE5MS4xNzU3NDE4MDM4*_ga_8JE65Q40S6*czE3NTc2MTU5ODgkbzYkZzAkdDE3NTc2MTU5ODgkajYwJGwwJGgw",
+          "timeAgo": "1s"
+        },
+        "content": "@Vinícius Eu também recomendaria dar uma olhada em design systems existentes, como o Material UI, Bootstrap ou Ant Design, para ver como eles são estruturados e que tipo de documentação eles oferecem. Além disso, há ótimos livros e artigos sobre o assunto, como Atomic Design, de Brad Frost e Modular Scale, de Nathan Curtis.",
+        "likes": 15,
+        "replies": []
+      }
+    ]
+  }
+}
