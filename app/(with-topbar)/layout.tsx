@@ -20,7 +20,20 @@ export default function Layout({ children }: LayoutProps) {
   const router = useRouter();
 
   //VARIÁVEIS DE ESTADO PARA ARMAZENAMENTO DE DADOS DO USUÁRIO
-  const { user: currentUser, loading, logout } = useAuth()
+  const { user: currentUser, loading, logout, fetchCurrentUser } = useAuth()
+
+  //FUNÇÃO PARA ASISTIR E VALIDAR O SE OS DADOS DO USUÁRIO
+  useEffect(() => {
+    const checkUser = async () => {
+      await fetchCurrentUser()
+
+      if(!currentUser && pathname === '/login/form'){
+        router.push('/login/form')
+      }
+    }
+
+    checkUser()
+  },[pathname])
 
   //FUNÇÃO PARA DESLOGAR O USUÁRIO
   const handleLogout = async () => {

@@ -11,6 +11,7 @@ export async function POST(request: Request) {
     try {
       const body = await request.json();
       token = body.token;
+      return 
     } catch (error) {
       console.error(error);
     }
@@ -27,10 +28,6 @@ export async function POST(request: Request) {
           token = tokenCookie.split("=")[1];
         }
       }
-      return NextResponse.json(
-        { validate: false, error: "Token é obrigatório" },
-        { status: 400 }
-      );
     }
 
     //VERIFICAÇÃO SE A SESSÃO EXISTE BUSCANDO PELO TOKEN E ARMAZENA
